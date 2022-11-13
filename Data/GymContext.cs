@@ -11,8 +11,8 @@ namespace GymApi.Data
         }
 
         public DbSet<Exercise> Exercises { get; set; }
-        public DbSet<ExerciseList> ExerciseLists { get; set; }
-        public DbSet<GymMembers> Members { get; set; }
+        public DbSet<TrainingPlanExercise> TrainingPlanExercises { get; set; }
+        public DbSet<GymMember> Members { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<TrainingPlan> TrainingPlans { get; set; }
 
@@ -22,6 +22,11 @@ namespace GymApi.Data
             {
                 entity.Property(e => e.UpdatedAt).ValueGeneratedOnAddOrUpdate();
                 entity.Property(e => e.CreatedAt).ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<TrainingPlanExercise>(entity =>
+            {
+                entity.HasKey(e => new { e.TrainingPlanId, e.ExerciseId });
             });
         }
     }
